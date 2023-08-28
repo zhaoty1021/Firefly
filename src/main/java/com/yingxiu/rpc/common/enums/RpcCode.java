@@ -3,9 +3,11 @@ package com.yingxiu.rpc.common.enums;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
+@ToString
 public enum RpcCode {
     UNKNOWN_ERROR("500","出现未知错误"),
     SUCCESS("200","成功"),
