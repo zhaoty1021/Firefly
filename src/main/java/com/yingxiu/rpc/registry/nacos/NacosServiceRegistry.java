@@ -28,7 +28,7 @@ public class NacosServiceRegistry implements ServiceRegistry {
     }
 
     @Override
-    public InetSocketAddress lookupService(String serviceName) {
+    public InetSocketAddress serviceDiscovery(String serviceName) {
         try {
             List<Instance> instances = NacosUtil.getAllInstance(serviceName);
             if(instances.size() == 0) {

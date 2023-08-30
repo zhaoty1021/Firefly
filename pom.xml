@@ -24,6 +24,12 @@
         <lombok.version>1.18.16</lombok.version>
         <netty.version>4.1.86.Final</netty.version>
         <nacos.version>2.2.4</nacos.version>
+        <kryo.version>5.3.0</kryo.version>
+        <protostuff.version>1.8.0</protostuff.version>
+        <!--hessian-->
+        <hessian.version>4.0.65</hessian.version>
+        <fury.version>0.1.0</fury.version>
+
     </properties>
     <dependencies>
         <!--单元测试启动器-->
@@ -65,6 +71,31 @@
             <groupId>com.alibaba.nacos</groupId>
             <artifactId>nacos-client</artifactId>
             <version>${nacos.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>${kryo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-core</artifactId>
+            <version>${protostuff.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-runtime</artifactId>
+            <version>${protostuff.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.caucho</groupId>
+            <artifactId>hessian</artifactId>
+            <version>${hessian.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.furyio</groupId>
+            <artifactId>fury-core</artifactId>
+            <version>${fury.version}</version>
         </dependency>
 
     </dependencies>
