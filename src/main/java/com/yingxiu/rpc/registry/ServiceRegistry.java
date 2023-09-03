@@ -1,11 +1,15 @@
 package com.yingxiu.rpc.registry;
 
+import com.yingxiu.rpc.extensions.SPI;
+import com.yingxiu.rpc.registry.nacos.NacosServiceRegistry;
+
 import java.net.InetSocketAddress;
 
 /**
  * @author yingxiu.zty
  * @createTime on 2023/8/29
  */
+@SPI()
 public interface ServiceRegistry {
     /**
      * 将一个服务注册进注册表

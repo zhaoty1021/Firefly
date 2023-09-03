@@ -1,0 +1,9 @@
+com:
+  yingxiu:
+    rpc:
+      compress: "grip"
+      serialize: "kyro"
+
+netty:
+  port: "9998"
+  host: "127.0.0.1"

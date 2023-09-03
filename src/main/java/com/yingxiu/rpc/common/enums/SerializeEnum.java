@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum SerializationTypeEnum {
+public enum SerializeEnum {
     KYRO((byte) 0x01, "kyro"),
     PROTOSTUFF((byte) 0x02, "protostuff"),
     HESSIAN((byte) 0X03, "hessian"),
@@ -19,7 +19,7 @@ public enum SerializationTypeEnum {
     private final String name;
 
     public static String getName(byte code) {
-        for (SerializationTypeEnum c : SerializationTypeEnum.values()) {
+        for (SerializeEnum c : SerializeEnum.values()) {
             if (c.getCode() == code) {
                 return c.name;
             }
