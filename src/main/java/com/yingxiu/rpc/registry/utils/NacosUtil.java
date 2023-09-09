@@ -24,7 +24,7 @@ public class NacosUtil {
     private static final Set<String> serviceNames = new HashSet<>();
     private static InetSocketAddress address;
 
-    private static final String SERVER_ADDR = "127.0.0.1:8848";
+    private static final String SERVER_ADDR = "39.100.98.102:8848";
 
     static {
         namingService = getNacosNamingService();
