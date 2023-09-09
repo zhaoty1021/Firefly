@@ -1,4 +1,5 @@
 import com.yingxiu.rpc.codec.compress.gzip.GzipCompress;
+import com.yingxiu.rpc.codec.compress.lz4.Lz4Compress;
 import com.yingxiu.rpc.codec.compress.snappy.SnappyCompress;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -299,10 +300,20 @@ public class CompressTest {
                 "</settings>\n";
         GzipCompress gzipCompress=new GzipCompress();
         SnappyCompress snappyCompress=new SnappyCompress();
+        Lz4Compress lz4Compress=new Lz4Compress();
+        long start = System.currentTimeMillis();
         byte[] gzipByte = gzipCompress.compress(s.getBytes());
+        System.out.println("s:"+s.getBytes().length+" gzip:"+gzipByte.length+" time:"+(System.currentTimeMillis() - start) / 100.0);
+        start = System.currentTimeMillis();
         byte[] snaByte = snappyCompress.compress(s.getBytes());
-        System.out.println("s:"+s.getBytes().length+" gzip:"+gzipByte.length);
-        System.out.println("s:"+s.getBytes().length+" snappy:"+snaByte.length);
+        System.out.println("s:"+s.getBytes().length+" snappy:"+snaByte.length+" time:"+(System.currentTimeMillis() - start) / 100.0);
+        start = System.currentTimeMillis();
+        byte[] lz4Byte = lz4Compress.compress(s.getBytes());
+        System.out.println("s:"+s.getBytes().length+" lz4:"+lz4Byte.length+" time:"+(System.currentTimeMillis() - start) / 100.0);
+
+
+
+
 
     }
 }
