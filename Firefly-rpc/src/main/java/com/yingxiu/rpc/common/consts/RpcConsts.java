@@ -1,5 +1,7 @@
 package com.yingxiu.rpc.common.consts;
 
+import com.yingxiu.rpc.codec.RpcMessage;
+
 /**
  * @author yingxiu.zty
  * @createTime on 2023/9/9
