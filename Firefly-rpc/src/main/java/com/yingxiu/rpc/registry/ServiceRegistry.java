@@ -9,7 +9,7 @@ import java.net.InetSocketAddress;
  * @author yingxiu.zty
  * @createTime on 2023/8/29
  */
-@SPI()
+@SPI
 public interface ServiceRegistry {
     /**
      * 将一个服务注册进注册表

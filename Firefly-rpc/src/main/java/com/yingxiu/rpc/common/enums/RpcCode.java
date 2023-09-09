@@ -17,6 +17,7 @@ public enum RpcCode {
     SERVICE_NOT_FOUND("100003","没有找到指定的服务"),
     SERVICE_INTERFACE_NOT_EXIST("100004","注册的服务没有实现任何接口"),
     SERVICE_SCAN_PACKAGE_NOT_FOUND("100005","启动类ServiceScan注解缺失"),
+    SERVER_START_FAILURE("100006","服务器启动失败"),
     //序列化错误
     UNKNOWN_SERIALIZER("200001","不识别的(反)序列化器"),
     SERIALIZER_NOT_FOUND("200003","找不到序列化器"),

@@ -1,5 +1,9 @@
 package com.yingxiu.rpc.transport.netty.server;
 
+import com.yingxiu.rpc.codec.RpcMessageDecoder;
+import com.yingxiu.rpc.codec.RpcMessageEncoder;
+import com.yingxiu.rpc.common.enums.RpcCode;
+import com.yingxiu.rpc.common.exception.RpcServiceException;
 import com.yingxiu.rpc.transport.RpcServer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -50,18 +54,20 @@ public class NettyRpcServer implements RpcServer {
                             // 30 秒之内没有收到客户端请求的话就关闭连接
                             ChannelPipeline p = ch.pipeline();
                             p.addLast(new IdleStateHandler(30, 0, 0, TimeUnit.SECONDS));
-
+                            p.addLast(new RpcMessageEncoder());
+                            p.addLast(new RpcMessageDecoder());
+                            p.addLast(new NettyRpcServerHandler());
                         }
                     });
-
             // 绑定端口，同步等待绑定成功
             ChannelFuture f = b.bind(host, Integer.parseInt(port)).sync();
             // 等待服务端监听端口关闭
             f.channel().closeFuture().sync();
         } catch (InterruptedException e) {
-            log.error("occur exception when start server:", e);
+            log.error("启动服务器时有错误发生: ", e);
+            throw new RpcServiceException(RpcCode.SERVER_START_FAILURE);
         } finally {
-            log.error("shutdown bossGroup and workerGroup");
+            log.error("关闭 bossGroup 和 workerGroup");
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
