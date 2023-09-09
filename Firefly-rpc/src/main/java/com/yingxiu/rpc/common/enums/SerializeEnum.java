@@ -13,7 +13,8 @@ public enum SerializeEnum {
     KYRO((byte) 0x01, "kyro"),
     PROTOSTUFF((byte) 0x02, "protostuff"),
     HESSIAN((byte) 0X03, "hessian"),
-    FURY((byte) 0X04, "fury");
+    FURY((byte) 0X04, "fury"),
+    JSON((byte) 0X05, "fastjson");
 
     private final byte code;
     private final String name;
