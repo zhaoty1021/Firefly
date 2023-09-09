@@ -303,13 +303,13 @@ public class CompressTest {
         Lz4Compress lz4Compress=new Lz4Compress();
         long start = System.currentTimeMillis();
         byte[] gzipByte = gzipCompress.compress(s.getBytes());
-        System.out.println("s:"+s.getBytes().length+" gzip:"+gzipByte.length+" time:"+(System.currentTimeMillis() - start) / 100.0);
+        System.out.println("s:"+s.getBytes().length+" gzip:"+gzipByte.length+" time:"+(System.currentTimeMillis() - start));
         start = System.currentTimeMillis();
         byte[] snaByte = snappyCompress.compress(s.getBytes());
-        System.out.println("s:"+s.getBytes().length+" snappy:"+snaByte.length+" time:"+(System.currentTimeMillis() - start) / 100.0);
+        System.out.println("s:"+s.getBytes().length+" snappy:"+snaByte.length+" time:"+(System.currentTimeMillis() - start));
         start = System.currentTimeMillis();
         byte[] lz4Byte = lz4Compress.compress(s.getBytes());
-        System.out.println("s:"+s.getBytes().length+" lz4:"+lz4Byte.length+" time:"+(System.currentTimeMillis() - start) / 100.0);
+        System.out.println("s:"+s.getBytes().length+" lz4:"+lz4Byte.length+" time:"+(System.currentTimeMillis() - start));
 
 
 

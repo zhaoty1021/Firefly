@@ -26,9 +26,9 @@ public class RpcMessage {
      */
     private byte compress;
     /**
-     * request id
+     * message id
      */
-    private int requestId;
+    private int messageId;
     /**
      * request data
      */
