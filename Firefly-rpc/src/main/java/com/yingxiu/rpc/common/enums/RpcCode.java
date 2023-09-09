@@ -21,6 +21,7 @@ public enum RpcCode {
     //序列化错误
     UNKNOWN_SERIALIZER("200001","不识别的(反)序列化器"),
     SERIALIZER_NOT_FOUND("200003","找不到序列化器"),
+    SERIALIZER_FAILURE("200004","序列化错误"),
     //注册问题
     RESPONSE_NOT_MATCH("300001","响应与请求号不匹配"),
     FAILED_TO_CONNECT_TO_SERVICE_REGISTRY("300002","连接注册中心失败"),
