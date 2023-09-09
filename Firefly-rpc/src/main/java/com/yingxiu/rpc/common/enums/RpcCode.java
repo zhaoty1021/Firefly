@@ -19,12 +19,14 @@ public enum RpcCode {
     SERVICE_SCAN_PACKAGE_NOT_FOUND("100005","启动类ServiceScan注解缺失"),
     //序列化错误
     UNKNOWN_SERIALIZER("200001","不识别的(反)序列化器"),
-    UNKNOWN_PACKAGE_TYPE("200002","不识别的数据包类型"),
     SERIALIZER_NOT_FOUND("200003","找不到序列化器"),
     //注册问题
     RESPONSE_NOT_MATCH("300001","响应与请求号不匹配"),
     FAILED_TO_CONNECT_TO_SERVICE_REGISTRY("300002","连接注册中心失败"),
-    REGISTER_SERVICE_FAILED("300003","注册服务失败");
+    REGISTER_SERVICE_FAILED("300003","注册服务失败"),
+    //编码解码错误
+    UNKNOWN_MAGIC_NUMBER("400001","魔数错误"),
+    UNKNOWN_MESSAGE_TYPE("400002","消息类型错误");
 
     private final String code;
     private final String msg;
