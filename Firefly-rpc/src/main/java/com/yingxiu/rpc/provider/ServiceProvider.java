@@ -1,9 +1,12 @@
 package com.yingxiu.rpc.provider;
 
+import com.yingxiu.rpc.extensions.SPI;
+
 /**
  * @author yingxiu.zty
  * @createTime on 2023/9/10
  */
+@SPI
 public interface ServiceProvider {
     /**
      * 添加服务

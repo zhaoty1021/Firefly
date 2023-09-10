@@ -3,7 +3,13 @@ package com.yingxiu.rpc.transport.netty.server;
 import com.yingxiu.rpc.codec.RpcMessageDecoder;
 import com.yingxiu.rpc.codec.RpcMessageEncoder;
 import com.yingxiu.rpc.common.enums.RpcCode;
+import com.yingxiu.rpc.common.enums.ServiceRegistryEnum;
 import com.yingxiu.rpc.common.exception.RpcServiceException;
+import com.yingxiu.rpc.common.factory.SingletonFactory;
+import com.yingxiu.rpc.common.utils.FireFlyServiceConfig;
+import com.yingxiu.rpc.extensions.ExtensionLoader;
+import com.yingxiu.rpc.provider.ServiceProvider;
+import com.yingxiu.rpc.registry.ServiceRegistry;
 import com.yingxiu.rpc.transport.RpcServer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -17,7 +23,9 @@ import io.netty.util.concurrent.DefaultEventExecutorGroup;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 
+import javax.annotation.Resource;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -30,6 +38,10 @@ public class NettyRpcServer implements RpcServer {
     private String port;
     @Value("${netty.host}")
     private String host;
+    protected ServiceRegistry serviceRegistry;
+    protected ServiceProvider serviceProvider;
+    @Resource
+    private FireFlyServiceConfig fireFlyServiceConfig;
     @Override
     public void start() {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
@@ -75,6 +87,11 @@ public class NettyRpcServer implements RpcServer {
 
     @Override
     public <T> void publishService(T service, String serviceName) {
-
+        serviceRegistry= SingletonFactory.getInstance(ExtensionLoader.
+                getExtensionLoader(ServiceRegistry.class).getExtension(fireFlyServiceConfig.getRegistryType()).getClass());
+        serviceProvider= SingletonFactory.getInstance(ExtensionLoader.
+                getExtensionLoader(ServiceProvider.class).getExtension(fireFlyServiceConfig.getRegistryType()).getClass());
+        serviceProvider.addService(service, serviceName);
+        serviceRegistry.register(serviceName, new InetSocketAddress(host, Integer.parseInt(port)));
     }
 }
