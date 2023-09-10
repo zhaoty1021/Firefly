@@ -1,5 +1,6 @@
-package com.yingxiu.rpc.serialize;
+package com.yingxiu.rpc.serialize.fury;
 
+import com.yingxiu.rpc.serialize.Serializer;
 import io.fury.Fury;
 import io.fury.Language;
 import io.fury.ThreadSafeFury;
@@ -11,7 +12,7 @@ import java.io.IOException;
  * @author yingxiu.zty
  * @createTime on 2023/9/10
  */
-public class FurySerializer implements Serializer{
+public class FurySerializer implements Serializer {
     private ThreadSafeFury fury = Fury.builder()
             .withLanguage(Language.JAVA)
             .withRefTracking(false)
@@ -25,6 +26,6 @@ public class FurySerializer implements Serializer{
 
     @Override
     public <T> T deserialize(byte[] bytes, Class<T> clz) throws IOException, ClassNotFoundException {
-        return (T) fury.deserialize(bytes);
+        return clz.cast(fury.deserialize(bytes));
     }
 }
