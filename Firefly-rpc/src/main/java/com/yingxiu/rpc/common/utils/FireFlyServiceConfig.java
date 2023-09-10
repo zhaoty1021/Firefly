@@ -27,4 +27,12 @@ public class FireFlyServiceConfig {
      * 压缩类型
      */
     private String compressType= "gzip";
+    /**
+     * host
+     */
+    private String host="127.0.0.1";
+    /**
+     * 端口
+     */
+    private int port=9998;
 }

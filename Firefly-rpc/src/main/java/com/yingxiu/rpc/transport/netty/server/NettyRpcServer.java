@@ -22,6 +22,7 @@ import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.net.InetAddress;
@@ -33,21 +34,26 @@ import java.util.concurrent.TimeUnit;
  * @createTime on 2023/9/1
  */
 @Slf4j
+@Component
 public class NettyRpcServer implements RpcServer {
-    @Value("${netty.port}")
-    private String port;
-    @Value("${netty.host}")
+    private int port;
     private String host;
-    protected ServiceRegistry serviceRegistry;
-    protected ServiceProvider serviceProvider;
+    private ServiceRegistry serviceRegistry;
+    private ServiceProvider serviceProvider;
     @Resource
     private FireFlyServiceConfig fireFlyServiceConfig;
+    public NettyRpcServer(){
+        host=fireFlyServiceConfig.getHost();
+        port=fireFlyServiceConfig.getPort();
+        serviceRegistry= SingletonFactory.getInstance(ExtensionLoader.
+                getExtensionLoader(ServiceRegistry.class).getExtension(fireFlyServiceConfig.getRegistryType()).getClass());
+        serviceProvider= SingletonFactory.getInstance(ExtensionLoader.
+                getExtensionLoader(ServiceProvider.class).getExtension(fireFlyServiceConfig.getRegistryType()).getClass());
+    }
     @Override
     public void start() {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-
-
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
@@ -72,7 +78,7 @@ public class NettyRpcServer implements RpcServer {
                         }
                     });
             // 绑定端口，同步等待绑定成功
-            ChannelFuture f = b.bind(host, Integer.parseInt(port)).sync();
+            ChannelFuture f = b.bind(host, port).sync();
             // 等待服务端监听端口关闭
             f.channel().closeFuture().sync();
         } catch (InterruptedException e) {
@@ -87,11 +93,7 @@ public class NettyRpcServer implements RpcServer {
 
     @Override
     public <T> void publishService(T service, String serviceName) {
-        serviceRegistry= SingletonFactory.getInstance(ExtensionLoader.
-                getExtensionLoader(ServiceRegistry.class).getExtension(fireFlyServiceConfig.getRegistryType()).getClass());
-        serviceProvider= SingletonFactory.getInstance(ExtensionLoader.
-                getExtensionLoader(ServiceProvider.class).getExtension(fireFlyServiceConfig.getRegistryType()).getClass());
         serviceProvider.addService(service, serviceName);
-        serviceRegistry.register(serviceName, new InetSocketAddress(host, Integer.parseInt(port)));
+        serviceRegistry.register(serviceName, new InetSocketAddress(host, port));
     }
 }
